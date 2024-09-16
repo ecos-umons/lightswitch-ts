@@ -1,47 +1,25 @@
 <script setup lang="ts">
-import HelloWorld from './components/HelloWorld.vue'
-import TheWelcome from './components/TheWelcome.vue'
+import { ref } from 'vue'
+import { Lamp } from './statemachine'
+
+const lamp = ref(new Lamp())
+
+// const brightness = ref(lamp._lampState.brightness)
+// const stateName = computed(() => lamp._lampState.state.value.name)
+// const brightness = computed(() => lamp.value._brightness)
 </script>
 
 <template>
-  <header>
-    <img alt="Vue logo" class="logo" src="./assets/logo.svg" width="125" height="125" />
-
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
+    <div>
+        <h1>A beautiful lamp</h1>
     </div>
-  </header>
-
-  <main>
-    <TheWelcome />
-  </main>
+    <div>
+        <h2>{{ lamp.state.name }}</h2>
+        <h3>{{ lamp.brightness }} - (Memory: {{ lamp.memory }})</h3>
+    </div>
+    <div>
+        <button @click="lamp.toggle()">Toggle</button>
+        <button @click="lamp.increase()">Increase</button>
+        <button @click="lamp.decrease()">Decrease</button>
+    </div>
 </template>
-
-<style scoped>
-header {
-  line-height: 1.5;
-}
-
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
-}
-
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
-
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
-}
-</style>
