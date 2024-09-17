@@ -12,44 +12,6 @@ class Transition {
     }
 }
 
-class State {
-    name: string
-    protected _context!: Lamp
-
-    constructor(name: string) {
-        this.name = name
-    }
-
-    entry(): void {
-        console.log(`[${this.name}]: entry`)
-    }
-
-    exit(): void {
-        console.log(`[${this.name}]: exit`)
-    }
-
-    toggle(): void {
-        console.log(`[${this.name}]: toggle`)
-    }
-    decrease(): void {
-        console.log(`[${this.name}]: decrease`)
-    }
-    increase(): void {
-        console.log(`[${this.name}]: increase`)
-    }
-    tick(): void {
-        console.log(`[${this.name}]: tick`)
-    }
-
-    get context(): Lamp {
-        return this._context
-    }
-
-    set context(context: Lamp) {
-        this._context = context
-    }
-}
-
 class OffOnTransition extends Transition {
     constructor() {
         super(On)
@@ -104,9 +66,53 @@ class OnSOffTransition extends Transition {
     }
 }
 
+export enum LampState {
+    Off = 'Off',
+    On = 'On',
+    SwitchingOff = 'Switching Off'
+}
+
+class State {
+    state: LampState
+    protected _context!: Lamp
+
+    constructor(state: LampState) {
+        this.state = state
+    }
+
+    entry(): void {
+        console.log(`[${this.state}]: entry`)
+    }
+
+    exit(): void {
+        console.log(`[${this.state}]: exit`)
+    }
+
+    toggle(): void {
+        console.log(`[${this.state}]: toggle`)
+    }
+    decrease(): void {
+        console.log(`[${this.state}]: decrease`)
+    }
+    increase(): void {
+        console.log(`[${this.state}]: increase`)
+    }
+    tick(): void {
+        console.log(`[${this.state}]: tick`)
+    }
+
+    get context(): Lamp {
+        return this._context
+    }
+
+    set context(context: Lamp) {
+        this._context = context
+    }
+}
+
 class Off extends State {
     constructor() {
-        super('Off')
+        super(LampState.Off)
     }
 
     entry(): void {
@@ -124,7 +130,7 @@ class On extends State {
     private _timeout: number = 10
 
     constructor() {
-        super('On')
+        super(LampState.On)
     }
 
     entry(): void {
@@ -169,7 +175,7 @@ class On extends State {
 
 class SwitchingOff extends State {
     constructor() {
-        super('Switching Off')
+        super(LampState.SwitchingOff)
     }
 
     tick(): void {
