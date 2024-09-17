@@ -5,18 +5,17 @@ This repository contains a simple example of a dimmable light switch. The exampl
 The aim of the example is to illustrate how to implement a visual UI controlled by a statechart,
 based on a state design pattern in object-oriented style. The example also illustrates how to write unit tests for testing the behaviour of this statechart.
 
-The example is implemented in **TypeScript**, and has a visual frontend in **VueJS**.
-The example can be built with **Vite**, and tested with **Vitest**.
+The example is implemented in **TypeScript**, and has a visual frontend created with **VueJS**, running in a web browser of your choice.
+The example has been built with [Vite](https://vitejs.dev), a frontend development enviroment and build tool for JavaScript.
+The code is tested with [Vitest](https://junit.org/junit5/), a Vite-native unit testing framework.
 
-### Prerequisites
+## Instructions
 
-You will need to have a running version of npm on your machine in order to be able to compile and execute this code.
+You will need to have a running version of npm on your machine in order to be able to compile and execute this code. If this is the case, you will be able to build, test and execute the code as follows: 
 
-### Installation and testing instructions
+### Project Setup
 
-If all prerequisites are satisfied, the code can be compiled, tested and executed as follows from the command-line:
-
-## Project Setup
+To install all necessary dependencies run the following instruction from the command-line:
 
 ```sh
 npm install
@@ -24,21 +23,28 @@ npm install
 
 ### Compile and Hot-Reload (for Development purposes)
 
+To compile and execute the code during development, run the following command-line instruction:
+
 ```sh
 npm run dev
 ```
 
-### Type-Check, Compile and Minify (for Production)
+
+### Test with Vitest
+
+To run all unit tests with [Vitest](https://vitest.dev/), run the following command-line instruction:
+
+```sh
+npm run test
+```
+
+### Compile production build
+
+To create an optimized and minified production build, run the following command-line instruction:
 
 ```sh
 npm run build
 npm run serve
-```
-
-### Run Unit Tests with [Vitest](https://vitest.dev/)
-
-```sh
-npm run test
 ```
 
 ### Lint with [ESLint](https://eslint.org/)
@@ -46,11 +52,6 @@ npm run test
 ```sh
 npm run lint
 ```
-
-## Built With
-
--   [Vite](<h[ttps://maven.apache.org/](https://vitejs.dev)>) - a frontend development enviroment and build tool for JavaScript
--   [Vitest](https://junit.org/junit5/) - a Vite-native unit testing framework
 
 ## License
 
