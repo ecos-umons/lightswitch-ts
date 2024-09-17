@@ -23,13 +23,13 @@ If all prerequisites are satisified, the code can be compiled, tested and execut
 npm install
 ```
 
-### Compile and Hot-Reload for Development
+### Compile and Hot-Reload (for Development purposes)
 
 ```sh
 npm run dev
 ```
 
-### Type-Check, Compile and Minify for Production
+### Type-Check, Compile and Minify (for Production)
 
 ```sh
 npm run build
@@ -38,7 +38,7 @@ npm run build
 ### Run Unit Tests with [Vitest](https://vitest.dev/)
 
 ```sh
-npm run test:unit
+npm run test
 ```
 
 ### Lint with [ESLint](https://eslint.org/)
