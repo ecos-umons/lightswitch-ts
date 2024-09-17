@@ -187,12 +187,16 @@ class SwitchingOff extends State {
     }
 }
 
+interface LampVars {
+    brightness: number
+    memory: number
+    state: any
+    // should be State, but there is then a typing issue
+    // with the getter and accessor
+}
+
 export class Lamp {
-    private _stateVars: {
-        brightness: number
-        memory: number
-        state: State
-    }
+    private _stateVars: LampVars
 
     constructor() {
         this._stateVars = reactive({
