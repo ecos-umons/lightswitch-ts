@@ -1,4 +1,4 @@
-import { reactive, ref } from 'vue'
+import { reactive } from 'vue'
 
 class Transition {
     private _to: any
@@ -67,9 +67,8 @@ class OnOffTransition extends Transition {
     }
 
     transition(context: Lamp): void {
-        super.transition(context)
         context.memory = context.brightness
-        context.brightness = 0
+        super.transition(context)
     }
 }
 
