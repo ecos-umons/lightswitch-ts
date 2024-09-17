@@ -8,7 +8,7 @@ class Transition {
     }
 
     transition(context: Lamp): void {
-        context.state = new this._to()
+        context.currentState = new this._to()
     }
 }
 
@@ -73,32 +73,32 @@ export enum LampState {
 }
 
 class State {
-    state: LampState
+    stateId: LampState
     protected _context!: Lamp
 
     constructor(state: LampState) {
-        this.state = state
+        this.stateId = state
     }
 
     entry(): void {
-        console.log(`[${this.state}]: entry`)
+        console.log(`[${this.stateId}]: entry`)
     }
 
     exit(): void {
-        console.log(`[${this.state}]: exit`)
+        console.log(`[${this.stateId}]: exit`)
     }
 
     toggle(): void {
-        console.log(`[${this.state}]: toggle`)
+        console.log(`[${this.stateId}]: toggle`)
     }
     decrease(): void {
-        console.log(`[${this.state}]: decrease`)
+        console.log(`[${this.stateId}]: decrease`)
     }
     increase(): void {
-        console.log(`[${this.state}]: increase`)
+        console.log(`[${this.stateId}]: increase`)
     }
     tick(): void {
-        console.log(`[${this.state}]: tick`)
+        console.log(`[${this.stateId}]: tick`)
     }
 
     get context(): Lamp {
@@ -197,7 +197,7 @@ interface LampVars {
     maxBrightness: number
     minBrightness: number
     memory: number
-    state: any
+    currentState: any
     // should be State, but there is then a typing issue
     // with the getter and accessor
 }
@@ -209,14 +209,14 @@ export class Lamp {
         this._stateVars = reactive({
             brightness: 0,
             memory: 10,
-            state: new Off(),
+            currentState: new Off(),
             maxBrightness: 10,
             minBrightness: 0
         })
-        this._stateVars.state.context = this
-        this._stateVars.state.entry()
+        this._stateVars.currentState.context = this
+        this._stateVars.currentState.entry()
         // run every second
-        setInterval(() => this.state.tick(), 1000)
+        setInterval(() => this.currentState.tick(), 1000)
     }
 
     transition(t: Transition): void {
@@ -224,16 +224,20 @@ export class Lamp {
     }
 
     toggle(): void {
-        this.state.toggle()
+        this.currentState.toggle()
     }
     increase(): void {
-        this.state.increase()
+        this.currentState.increase()
     }
     decrease(): void {
-        this.state.decrease()
+        this.currentState.decrease()
     }
     tick(): void {
-        this.state.tick()
+        this.currentState.tick()
+    }
+
+    get brightness(): number {
+        return this._stateVars.brightness
     }
 
     set brightness(value: number) {
@@ -245,19 +249,15 @@ export class Lamp {
         this._stateVars.brightness = value
     }
 
-    get brightness(): number {
-        return this._stateVars.brightness
+    get currentState(): State {
+        return this._stateVars.currentState
     }
 
-    get state(): State {
-        return this._stateVars.state
-    }
-
-    set state(state: State) {
-        this.state.exit()
-        this._stateVars.state = state
-        this._stateVars.state.context = this
-        this.state.entry()
+    set currentState(state: State) {
+        this.currentState.exit()
+        this._stateVars.currentState = state
+        this._stateVars.currentState.context = this
+        this.currentState.entry()
     }
 
     set memory(value: number) {

@@ -11,7 +11,7 @@ const backgroundColor = computed(() => {
     return `rgb(${brightness255 * 255}, ${brightness255 * 255}, ${brightness255 * 194})`
 })
 
-const lampIsOn = computed(() => lamp.value.state.state === LampState.On)
+const lampIsOn = computed(() => lamp.value.currentState.stateId === LampState.On)
 </script>
 
 <template>
@@ -20,7 +20,7 @@ const lampIsOn = computed(() => lamp.value.state.state === LampState.On)
             <h1 class="display-3">A beautiful lamp</h1>
         </div>
         <div>
-            <h2 class="display-5">Currently {{ lamp.state.state.toLowerCase() }}</h2>
+            <h2 class="display-5">Currently {{ lamp.currentState.stateId.toLowerCase() }}</h2>
             <div :style="{ backgroundColor }" style="height: 20vh" />
             <h3 class="display-5">
                 with a brightness of {{ (lamp.brightness / lamp.maxBrightness) * 100 }}% ({{
