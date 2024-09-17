@@ -1,13 +1,8 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
 import { Lamp } from './statemachine'
-import * as bootstrap from 'bootstrap'
 
 const lamp = ref(new Lamp())
-
-// const brightness = ref(lamp._lampState.brightness)
-// const stateName = computed(() => lamp._lampState.state.value.name)
-// const brightness = computed(() => lamp.value._brightness)
 
 // get mainBody and set the background color
 const backgroundColor = computed(() => {
