@@ -13,12 +13,12 @@
     "type-check": "vue-tsc --build --force",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
     "format": "prettier --write src/",
-    "serve": "serve dist/"
+    "serve": "http-server dist/"
   },
   "dependencies": {
     "@popperjs/core": "^2.11.8",
     "bootstrap": "^5.3.3",
-    "serve": "^14.2.3",
+    "http-server": "^14.1.1",
     "vue": "^3.4.29"
   },
   "devDependencies": {

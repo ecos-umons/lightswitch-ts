@@ -6,16 +6,15 @@ The aim of the example is to illustrate how to implement a visual UI controlled 
 based on a state design pattern in object-oriented style. The example also illustrates how to write unit tests for testing the behaviour of this statechart.
 
 The example is implemented in **TypeScript**, and has a visual frontend in **VueJS**.
-The example can be built with Vite, and tested with **Vitest**.
+The example can be built with **Vite**, and tested with **Vitest**.
 
 ### Prerequisites
 
--   You will need to have a running version of Node **SPECIFY VERSION** on your machine in order to be able to compile and execute this code.
--   You will also need to have a running version of **SPECIFY OTHER PREREQUISITES\***
+You will need to have a running version of npm on your machine in order to be able to compile and execute this code.
 
 ### Installation and testing instructions
 
-If all prerequisites are satisified, the code can be compiled, tested and executed as follows from the command-line:
+If all prerequisites are satisfied, the code can be compiled, tested and executed as follows from the command-line:
 
 ## Project Setup
 
@@ -33,6 +32,7 @@ npm run dev
 
 ```sh
 npm run build
+npm run serve
 ```
 
 ### Run Unit Tests with [Vitest](https://vitest.dev/)
