@@ -28,7 +28,8 @@ To compile and execute the code during development, run the following command-li
 ```sh
 npm run dev
 ```
-
+You will see a link to a local host address that you can open in your web browser to run the application.
+It provides a minimal visual interface of a dimmable lamp that you can switch on or off, and adjust its brightness.
 
 ### Test with Vitest
 
@@ -46,6 +47,9 @@ To create an optimized and minified production build, run the following command-
 npm run build
 npm run serve
 ```
+You will see a link to a local URL that you can open in your web browser to run the application.
+It provides a minimal visual interface of a dimmable lamp that you can switch on or off, and adjust its brightness.
+
 
 ### Lint with [ESLint](https://eslint.org/)
 
