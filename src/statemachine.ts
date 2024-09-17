@@ -189,6 +189,8 @@ class SwitchingOff extends State {
 
 interface LampVars {
     brightness: number
+    maxBrightness: number
+    minBrightness: number
     memory: number
     state: any
     // should be State, but there is then a typing issue
@@ -202,7 +204,9 @@ export class Lamp {
         this._stateVars = reactive({
             brightness: 0,
             memory: 10,
-            state: new Off()
+            state: new Off(),
+            maxBrightness: 10,
+            minBrightness: 0
         })
         this._stateVars.state.context = this
         this._stateVars.state.entry()
@@ -226,7 +230,10 @@ export class Lamp {
 
     set brightness(value: number) {
         // Ensure the brightness value is between 0 and 10
-        value = Math.min(10, Math.max(0, value))
+        value = Math.min(
+            this._stateVars.maxBrightness,
+            Math.max(this._stateVars.minBrightness, value)
+        )
         this._stateVars.brightness = value
     }
 
@@ -251,5 +258,13 @@ export class Lamp {
 
     get memory(): number {
         return this._stateVars.memory
+    }
+
+    get maxBrightness(): number {
+        return this._stateVars.maxBrightness
+    }
+
+    get minBrightness(): number {
+        return this._stateVars.minBrightness
     }
 }
