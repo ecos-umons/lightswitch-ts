@@ -1,7 +1,4 @@
-# This workflow will do a clean installation of node dependencies, cache/restore them, build the source code and run tests across different versions of node
-# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-nodejs
-
-name: Node.js CI
+name: Create zip file of production code upon release
 
 on:
   release:
@@ -20,12 +17,12 @@ jobs:
           cache: "npm"
       - run: npm ci
       - run: npm run build
-      # only on release, create a zip with tag name containing the 'dist' folder
+      # create a zip file containing the 'dist' folder
       - name: Create release zip
-        run: cd dist && zip -r ../lightswitch-built.zip . && cd ..
-      # only on release, upload the created zip to the release
+        run: cd dist && zip -r ../lightswitch-dist.zip . && cd ..
+      # upload the created zip as an asset to the published release
       - name: Upload release asset
         uses: softprops/action-gh-release@v2
         with:
           files: |
-            lightswitch-built.zip
+            lightswitch-dist.zip
