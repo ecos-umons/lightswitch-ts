@@ -226,6 +226,9 @@ export class Lamp {
     decrease(): void {
         this.state.decrease()
     }
+    tick(): void {
+        this.state.tick()
+    }
 
     set brightness(value: number) {
         // Ensure the brightness value is between 0 and 10
