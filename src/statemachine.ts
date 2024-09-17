@@ -169,7 +169,7 @@ class On extends State {
 
 class SwitchingOff extends State {
     constructor() {
-        super('SwitchingOff')
+        super('Switching Off')
     }
 
     tick(): void {

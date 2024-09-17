@@ -10,6 +10,8 @@ const backgroundColor = computed(() => {
     const brightness255 = brightness / lamp.value.maxBrightness
     return `rgb(${brightness255 * 255}, ${brightness255 * 255}, ${brightness255 * 194})`
 })
+
+const lampIsOn = computed(() => lamp.value.state.name.toLowerCase() === 'on')
 </script>
 
 <template>
@@ -27,9 +29,23 @@ const backgroundColor = computed(() => {
             </h3>
         </div>
         <div class="py-3">
-            <button class="btn btn-primary mx-2 btn-lg" @click="lamp.toggle()">Toggle</button>
-            <button class="btn btn-primary mx-2 btn-lg" @click="lamp.increase()">Increase</button>
-            <button class="btn btn-primary mx-2 btn-lg" @click="lamp.decrease()">Decrease</button>
+            <button class="btn btn-primary mx-2 btn-lg" @click="lamp.toggle()">
+                {{ lampIsOn ? 'Turn off' : 'Turn on' }}
+            </button>
+            <button
+                class="btn btn-primary mx-2 btn-lg"
+                @click="lamp.increase()"
+                :disabled="!lampIsOn"
+            >
+                Increase
+            </button>
+            <button
+                class="btn btn-primary mx-2 btn-lg"
+                @click="lamp.decrease()"
+                :disabled="!lampIsOn"
+            >
+                Decrease
+            </button>
         </div>
     </div>
 </template>
