@@ -2,12 +2,18 @@
 
 This repository contains a simple example of a dimmable light switch. The example is very basic, since it is used for teaching purposes by the Software Engineering Lab of the Faculty of Sciences at the University of Mons.
 
-The aim of the example is to illustrate how to implement a visual UI controlled by a statechart,
-based on a state design pattern in object-oriented style. The example also illustrates how to write unit tests for testing the behaviour of this statechart.
-
 The example is implemented in **TypeScript**, and has a visual frontend created with **VueJS**, running in a web browser of your choice.
 The example has been built with [Vite](https://vitejs.dev), a frontend development enviroment and build tool for JavaScript.
 The code is tested with [Vitest](https://junit.org/junit5/), a Vite-native unit testing framework.
+
+## Statechart model
+
+The aim of the example is to illustrate how to implement a visual UI controlled by a **statechart**,
+based on a **state design pattern** in object-oriented style. The example also illustrates how to write unit tests for testing the behaviour of this statechart. The statechart model that is implemented is the following one.
+![alt text](https://github.com/ecos-umons/lightswitch-ts/blob/main/statechart-model/lightswitch-statechart.png?raw=true)
+
+It uses two internal integer variables *brightness* and *memory*; two integer constants *min* and *max* to constrain the *brightness*; three events *toggle*, *increase* and *decrease* to interact with the statechart (e.g. to switch it on or off, or to change its brightness), and three states *Off*, *On* and *Switching Off* (with transitions between them). The executable behaviour modeled by this statechart should be self-explanatory, if you are acquainted with the statechart visual notation.
+
 
 ## Instructions
 
