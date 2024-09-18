@@ -1,4 +1,3 @@
-import assert from 'assert'
 import { reactive } from 'vue'
 
 class Transition {
