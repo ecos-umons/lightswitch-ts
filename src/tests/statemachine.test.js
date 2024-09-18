@@ -19,53 +19,54 @@ test('Lamp should be off after toggle twice', () => {
     expect(lamp.currentState.stateId).toBe(LampState.Off)
 })
 
-test('Lamp should be on with a brightness of 50 after toggle and 5 decrease', () => {
+test('Lamp should be on with a middle brightness after enough decrease', () => {
     const lamp = new Lamp()
     lamp.toggle()
     expect(lamp.currentState.stateId).toBe(LampState.On)
-    for (let i = 0; i < 5; i++) {
+    const x = Math.floor((lamp.maxBrightness - lamp.minBrightness) / 2)
+    for (let i = 0; i < x; i++) {
         lamp.decrease()
     }
     expect(lamp.currentState.stateId).toBe(LampState.On)
-    expect(lamp.brightness).toBe(5)
+    expect(lamp.brightness).toBe(lamp.maxBrightness - x)
 })
 
-test('Lamp should be on after toggle and 10 decrease', () => {
+test('Lamp should be on after toggle and maxBrightness decrease', () => {
     const lamp = new Lamp()
     lamp.toggle()
     expect(lamp.currentState.stateId).toBe(LampState.On)
-    for (let i = 0; i < 10; i++) {
+    for (let i = 0; i < lamp.maxBrightness; i++) {
         lamp.decrease()
     }
     expect(lamp.currentState.stateId).toBe(LampState.On)
-    expect(lamp.brightness).toBe(0)
+    expect(lamp.brightness).toBe(lamp.minBrightness)
 })
 
-test('Lamp should be turning off after a toggle and 10 ticks', () => {
+test('Lamp should be turning off after a toggle and timeoutTicks ticks', () => {
     const lamp = new Lamp()
     lamp.toggle()
     expect(lamp.currentState.stateId).toBe(LampState.On)
-    for (let i = 0; i < 10; i++) {
+    for (let i = 0; i < lamp.timeoutTicks; i++) {
         lamp.tick()
     }
     expect(lamp.currentState.stateId).toBe(LampState.SwitchingOff)
 })
 
-test('Lamp should be off after a toggle, 10 + maxBrightness ticks', () => {
+test('Lamp should be off after a toggle, timeoutTicks + maxBrightness ticks', () => {
     const lamp = new Lamp()
     lamp.toggle()
     expect(lamp.currentState.stateId).toBe(LampState.On)
-    for (let i = 0; i < 10 + lamp.maxBrightness; i++) {
+    for (let i = 0; i < lamp.timeoutTicks + lamp.maxBrightness; i++) {
         lamp.tick()
     }
     expect(lamp.currentState.stateId).toBe(LampState.Off)
 })
 
-test('Lamp should be on after a toggle, 10 ticks, toggle', () => {
+test('Lamp should be on after a toggle, lamp.timeoutTicks ticks, toggle', () => {
     const lamp = new Lamp()
     lamp.toggle()
     expect(lamp.currentState.stateId).toBe(LampState.On)
-    for (let i = 0; i < 10; i++) {
+    for (let i = 0; i < lamp.timeoutTicks; i++) {
         lamp.tick()
     }
     expect(lamp.currentState.stateId).toBe(LampState.SwitchingOff)
@@ -73,20 +74,21 @@ test('Lamp should be on after a toggle, 10 ticks, toggle', () => {
     expect(lamp.currentState.stateId).toBe(LampState.On)
 })
 
-test('Lamp should be off after a toggle, X decrease, 10 ticks, X ticks', () => {
+test('Lamp should be off after a toggle, X decrease, lamp.timeoutTicks ticks, X ticks', () => {
     const lamp = new Lamp()
     lamp.toggle()
     expect(lamp.currentState.stateId).toBe(LampState.On)
-    for (let i = 0; i < 5; i++) {
+    const x = Math.floor((lamp.maxBrightness - lamp.minBrightness) / 2)
+    for (let i = 0; i < x; i++) {
         lamp.decrease()
     }
     expect(lamp.currentState.stateId).toBe(LampState.On)
-    expect(lamp.brightness).toBe(5)
-    for (let i = 0; i < 10; i++) {
+    expect(lamp.brightness).toBe(lamp.maxBrightness - x)
+    for (let i = 0; i < lamp.timeoutTicks; i++) {
         lamp.tick()
     }
     expect(lamp.currentState.stateId).toBe(LampState.SwitchingOff)
-    for (let i = 0; i < 10; i++) {
+    for (let i = 0; i < lamp.maxBrightness - x; i++) {
         lamp.tick()
     }
     expect(lamp.currentState.stateId).toBe(LampState.Off)
@@ -94,7 +96,7 @@ test('Lamp should be off after a toggle, X decrease, 10 ticks, X ticks', () => {
 
 test('Lamp should be the same brightness after off and on', () => {
     const lamp = new Lamp()
-    const x = 5
+    const x = Math.floor((lamp.maxBrightness - lamp.minBrightness) / 2)
     lamp.toggle()
     expect(lamp.currentState.stateId).toBe(LampState.On)
     for (let i = 0; i < x; i++) {
@@ -110,11 +112,11 @@ test('Lamp should be the same brightness after off and on', () => {
     expect(lamp.brightness).toBe(lamp.maxBrightness - x)
 })
 
-test('Lamp should be turning off at brightness 2 after a toggle and 10+maxBrightness-2 ticks', () => {
+test('Lamp should be turning off at brightness 2 after a toggle and lamp.timeoutTicks+maxBrightness-2 ticks', () => {
     const lamp = new Lamp()
     lamp.toggle()
     expect(lamp.currentState.stateId).toBe(LampState.On)
-    for (let i = 0; i < 10 + lamp.maxBrightness - 2; i++) {
+    for (let i = 0; i < lamp.timeoutTicks + lamp.maxBrightness - 2; i++) {
         lamp.tick()
     }
     expect(lamp.currentState.stateId).toBe(LampState.SwitchingOff)

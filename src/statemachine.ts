@@ -1,3 +1,4 @@
+import assert from 'assert'
 import { reactive } from 'vue'
 
 class Transition {
@@ -148,15 +149,14 @@ class On extends State {
         // brightness should not exceed 10
         // verified by the setter
         this.context.brightness += 1
-        this._timeout = 10
+        this._timeout = this.context.timeoutTicks
     }
 
     decrease(): void {
         super.decrease()
-        // brightness should not be less than 0
-        // verified by the setter
-        this.context.brightness -= 1
-        this._timeout = 10
+        // brightness should not be less than minBrightness
+        this.context.brightness = Math.max(this.context.minBrightness, this.context.brightness - 1)
+        this._timeout = this.context.timeoutTicks
     }
 
     toggle(): void {
@@ -170,6 +170,17 @@ class On extends State {
         if (this._timeout === 0) {
             this.context.transition(new OnSOffTransition())
         }
+    }
+
+    // Somehow, we also need to override the context getter
+    // when we override the context setter
+    get context(): Lamp {
+        return super.context
+    }
+
+    set context(context: Lamp) {
+        super.context = context
+        this._timeout = context.timeoutTicks
     }
 }
 
@@ -198,6 +209,7 @@ interface LampVars {
     minBrightness: number
     memory: number
     currentState: any
+    timeoutTicks: number
     // should be State, but there is then a typing issue
     // with the getter and accessor
 }
@@ -211,8 +223,10 @@ export class Lamp {
             memory: 10,
             currentState: new Off(),
             maxBrightness: 10,
-            minBrightness: 0
+            minBrightness: 0,
+            timeoutTicks: 10
         })
+        assert(this._stateVars.minBrightness <= this._stateVars.maxBrightness)
         this._stateVars.currentState.context = this
         this._stateVars.currentState.entry()
         // run every second
@@ -242,10 +256,7 @@ export class Lamp {
 
     set brightness(value: number) {
         // Ensure the brightness value is between 0 and 10
-        value = Math.min(
-            this._stateVars.maxBrightness,
-            Math.max(this._stateVars.minBrightness, value)
-        )
+        value = Math.min(this._stateVars.maxBrightness, Math.max(0, value))
         this._stateVars.brightness = value
     }
 
@@ -274,5 +285,13 @@ export class Lamp {
 
     get minBrightness(): number {
         return this._stateVars.minBrightness
+    }
+
+    get timeoutTicks(): number {
+        return this._stateVars.timeoutTicks
+    }
+
+    set timeoutTicks(value: number) {
+        this._stateVars.timeoutTicks = value
     }
 }
