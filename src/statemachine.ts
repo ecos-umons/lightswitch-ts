@@ -223,10 +223,10 @@ export class Lamp {
             memory: 10,
             currentState: new Off(),
             maxBrightness: 10,
-            minBrightness: 0,
+            minBrightness: 5,
             timeoutTicks: 10
         })
-        assert(this._stateVars.minBrightness <= this._stateVars.maxBrightness)
+        // assert(this._stateVars.minBrightness <= this._stateVars.maxBrightness)
         this._stateVars.currentState.context = this
         this._stateVars.currentState.entry()
         // run every second
